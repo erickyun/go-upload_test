@@ -1,4 +1,4 @@
-name: Build go-ul_linux_x86
+name: Build go-ul_linux_x86_and_x64
 
 on:
   push:
@@ -19,13 +19,23 @@ jobs:
       with:
         go-version: '1.22'  # or latest stable Go version
 
-    - name: Build binary
+    - name: Build go-ul_linux_x86
       run: |
         mkdir -p build
         GOOS=linux GOARCH=386 go build -o build/go-ul_linux_x86 .
 
-    - name: Upload artifact
+    - name: Build go-ul_linux_x64
+      run: |
+        GOOS=linux GOARCH=amd64 go build -o build/go-ul_linux_x64 .
+
+    - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: go-ul_linux_x86
         path: build/go-ul_linux_x86
+
+    - name: Upload go-ul_linux_x64 artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: go-ul_linux_x64
+        path: build/go-ul_linux_x64
