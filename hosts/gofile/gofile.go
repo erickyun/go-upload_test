@@ -25,13 +25,10 @@ func getServer() (string, error) {
 	if obj.Status != "ok" {
 		return "", errors.New("bad response from server")
 	}
-	if len(obj.Data.Servers) == 0 {
-		return "", errors.New("no servers available")
+	if obj.Data.Server == "" {
+		return "", errors.New("no server available")
 	}
-	for _, server := range obj.Data.Servers {
-		return server.Name, nil
-	}
-	return "", errors.New("no servers found")
+	return obj.Data.Server, nil
 }
 
 func upload(uploadUrl, path string, size, byteLimit int64, headers map[string]string) (string, error) {
