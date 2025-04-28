@@ -1,0 +1,31 @@
+name: Build go-ul_linux_x86
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'  # or latest stable Go version
+
+    - name: Build binary
+      run: |
+        mkdir -p build
+        GOOS=linux GOARCH=386 go build -o build/go-ul_linux_x86 .
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: go-ul_linux_x86
+        path: build/go-ul_linux_x86
