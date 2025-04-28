@@ -11,22 +11,6 @@ const (
 	serverUrl = "https://api.gofile.io/servers"
 )
 
-type GetServer struct {
-	Status string `json:"status"`
-	Data   struct {
-		Servers map[string]struct {
-			Name string `json:"name"`
-		} `json:"servers"`
-	} `json:"data"`
-}
-
-type Upload struct {
-	Status string `json:"status"`
-	Data   struct {
-		DownloadPage string `json:"downloadPage"`
-	} `json:"data"`
-}
-
 func getServer() (string, error) {
 	respBody, err := utils.DoGet(serverUrl, nil, nil)
 	if err != nil {
