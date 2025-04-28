@@ -12,20 +12,23 @@ const (
 )
 
 func getServer() (string, error) {
-	respBody, err := utils.DoGet(serverUrl, nil, nil)
-	if err != nil {
-		return "", err
-	}
-	defer respBody.Close()
-	var obj GetServer
-	err = json.NewDecoder(respBody).Decode(&obj)
-	if err != nil {
-		return "", err
-	}
-	if obj.Status != "ok" {
-		return "", errors.New("Bad response.")
-	}
-	return obj.Data.Server, nil
+    	respBody, err := utils.DoGet(serverUrl, nil, nil)
+    	if err != nil {
+        	return "", err
+    	}
+    	defer respBody.Close()
+    	var obj GetServer
+    	err = json.NewDecoder(respBody).Decode(&obj)
+    	if err != nil {
+        	return "", err
+    	}
+    	if obj.Status != "ok" {
+        	return "", errors.New("Bad response.")
+    	}
+    	if len(obj.Data.Servers) == 0 {
+        	return "", errors.New("No servers available.")
+    	}
+    	return obj.Data.Servers[0].Name, nil
 }
 
 func upload(uploadUrl, path string, size, byteLimit int64, headers map[string]string) (string, error) {
