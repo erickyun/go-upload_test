@@ -8,7 +8,7 @@ import (
 
 const (
 	referer   = "https://gofile.io/"
-	serverUrl = "https://api.gofile.io/getServer"
+	serverUrl = "https://api.gofile.io/servers"
 )
 
 func getServer() (string, error) {
