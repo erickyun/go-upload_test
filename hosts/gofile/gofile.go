@@ -28,6 +28,8 @@ func getServer() (string, error) {
 	if len(obj.Data.Servers) == 0 {
 		return "", errors.New("no servers available")
 	}
+
+	// İlk sunucuyu alıyoruz
 	return obj.Data.Servers[0].Name, nil
 }
 
